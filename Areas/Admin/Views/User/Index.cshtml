@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "Trang chủ Admin";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+@model List<MonNgonMoiNgay.Models.Entities.BaiDang>
+
+<h2>Trang chủ Admin</h2>
+<div class="row">
+    @foreach (var item in Model)
+            {
+    <div class="col-sm-3" style="background-color:lavender; margin-top:5px; text-align:center"> 
+        <div>
+            <img src="@item.getOneImage()" class="img-fluid" alt="Image"><br />
+        </div>
+        <h3> @Html.DisplayFor(modelItem => item.TenMon)</h3>
+        @Html.DisplayFor(modelItem => item.MoTa)<br />
+        <a class="btn hvr-hover" href="#" onclick="setDayBaiDang('@item.MaBd', this)" title="Push"><i class="fa fa-bookmark" style="padding-left: 3px">Push</i></a>
+        <a class="btn hvr-hover" href="#" onclick="setAnBaiDang('@item.MaBd', this)" title="Push"><i class="fa fa-bookmark" style="padding-left: 3px">Hide</i></a>
+    </div>
+            }
+</div>

@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "listday";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@model List<MonNgonMoiNgay.Models.Entities.DayBaiDang>
+
+<h2>listday</h2>
+<div class="row">
+    <table>
+        <tr>
+            <th>Mã bài đăng</th>
+            <th>Thời gian đẩy</th>
+        </tr>
+    @foreach (var item in Model)
+            {
+        <tr>
+            <td> @Html.DisplayFor(modelItem => item.MaBd)</td>
+
+        <td>@Html.DisplayFor(modelItem => item.ThoiGian)</td>
+        </tr>
+            }
+    </table>
+</div>
+

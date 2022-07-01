@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "Thêm mới bài đăng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using MonNgonMoiNgay.Models.Entities
+
+<div class="container">
+    <div class="row post-meta">
+        <div class="col-12"><br /></div>
+        <div class="col-lg-5 col-md-12 col-sm-12">
+            <div class="file-drop-area">
+                <span class="fake-btn">Kéo thả hoặc chọn ảnh</span>
+                <input class="file-input" id="pstImg" type="file" multiple accept=".jpg, .png" />
+            </div>
+            <div class="preview-images"></div>
+            <button type="button" class="btn btn-outline-danger btn-remove">Xóa hết ảnh</button>
+        </div>
+        <div class="col-lg-7 col-md-12 col-sm-12">
+            <form id="frmCreatePost" enctype="multipart/form-data" method="post">
+                <label class="form-group has-float-label">
+                    <select id="pstLoai" required class="form-control custom-select">
+                        <option value="0" selected>Chọn loại món</option>
+                        @foreach (var loai in ViewData["LoaiMonAn"] as List<LoaiMonAn>)
+                        {
+                            <option value="@loai.MaLoai">@loai.TenLoai</option>
+                        }
+                    </select>
+                    <span>Loại Món</span>
+                </label>
+                <div class="form-group has-float-label">
+                    <input class="form-control" id="pstTenMon" required type="text" maxlength="50" placeholder="Nhập tên món ăn..." />
+                    <label for="pstTenMon">Tên Món</label>
+                </div>
+                <div class="form-group input-group">
+                    <label class="has-float-label">
+                        <input class="form-control" id="pstGiaTien" required type="text" maxlength="8" name="number" placeholder="Nhập giá tiền..." />
+                        <span>Giá Tiền</span>
+                    </label>
+                    <div class="input-group-append">
+                        <span class="input-group-text" style="background: none;">VNĐ</span>
+                    </div>
+                </div>
+                <div class="form-group has-float-label">
+                    <textarea class="form-control" id="pstMoTa" required rows="8" maxlength="500" placeholder="Nhập mô tả món ăn...."></textarea>
+                    <label for="pstMoTa">Mô Tả</label>
+                </div>
+                <div class="form-inline">
+                    <label class="form-group has-float-label" style="margin: 5px 10px 5px 0">
+                        <select id="pstTP" required class="form-control custom-select">
+                            <option value="0" selected>Chọn Tỉnh/Thành Phố</option>
+                            @foreach(var tp in ViewData["TinhTP"] as List<TinhTp>)
+                            {
+                                <option value="@tp.MaTp">@tp.TenTp</option>
+                            }
+                        </select>
+                        <span>Tỉnh/Thành Phố</span>
+                    </label>
+                    <label class="form-group has-float-label" style="margin: 5px 10px 5px 0">
+                        <select id="pstQH" required class="form-control custom-select">
+                            <option value="0" selected>Chọn Quận/Huyện</option>
+                        </select>
+                        <span>Quận/Huyện</span>
+                    </label>
+                    <label class="form-group has-float-label" style="margin: 5px 0 5px 0">
+                        <select id="pstXP" required class="form-control custom-select">
+                            <option value="0" selected>Chọn Xã/Phường</option>
+                        </select>
+                        <span>Xã/Phường</span>
+                    </label>
+                </div>
+                <div class="form-group has-float-label" style="margin-top: 10px;">
+                    <input class="form-control" id="pstDiaChi" required type="text" maxlength="100" placeholder="Nhập địa chỉ cụ thể..." />
+                    <label for="pstDiaChi">Địa Chỉ</label>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success btn-post">Đăng bài</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

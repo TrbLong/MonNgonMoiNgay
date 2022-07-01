@@ -1,0 +1,211 @@
+﻿@{
+    Layout = null;
+
+    NguoiDung userLogin = new NguoiDung();
+
+    if (User.Identity.IsAuthenticated)
+    {
+        userLogin.MaNd = User.Claims.ToList()[0].Value;
+    }
+}
+@using MonNgonMoiNgay.Models.Entities
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"]</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="~/Content/Images/Resources/logo.png" type="image/x-icon">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <!-- Bootstrap Float Label -->
+    <link rel="stylesheet" href="~/css/bootstrap-float-label.min.css" />
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="~/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/css/toastr.css" />
+    <!-- Font Style -->
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>
+</head>
+
+<body>
+    <!-- Start Main Top -->
+    <header class="main-header">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light navbar-default bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href="/"><img height="30" src="~/Content/Images/Resources/logo.png" class="logo" alt=""></a>
+                    
+                </div>
+                <!-- End Header Navigation -->
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
+                        <li class="nav-item">
+                            <form role="search" class="sr-input-func" id="search-post">
+                            <input id="inp-search-post" type="text" placeholder="Tìm kiếm món ăn..." class="search-int form-control">
+                            <span><a href="#" id="btn-search-post"><i class="fa fa-search"></i></a></span>
+                    </form>
+                        </li>
+                        <li class="nav-item @ViewBag.TrangChu"><a class="nav-link" href="/">Trang chủ</a></li>
+                        <li class="nav-item @ViewBag.BaiDang"><a class="nav-link" href="~/Post/listBaiDang">Bài đăng</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">DropDown</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">1111111</a></li>
+                                <li><a href="#">2222222222</a></li>
+                                <li><a href="#">333333333</a></li>
+                                <li><a href="#">444444444</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item @ViewBag.ThongTin"><a class="nav-link" href="~/Post/CreatePhanHoi">Phản hồi</a></li>
+                        <li class="nav-item @ViewBag.LienHe"><a class="nav-link" href="#">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+                <!-- Start Atribute Navigation -->
+                <div class="attr-nav">
+                    <ul>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img class="img-header" src="@userLogin.getImage()" >
+                                    &nbsp;
+                                    @userLogin.getTenHienThi()
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="~/Admin/User/Index"><i class="fa fa-th"></i>&nbsp; Trang quản trị</a>
+                                    <a class="dropdown-item text-danger" href="~/Account/Logout"><i class="fas fa-power-off"></i>&nbsp; Đăng xuất</a>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li><a href="~/Account/Login" type="button">Đăng nhập</a></li>
+                        }
+                        <li class="side-menu">
+                            <a href="#">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="badge" style="color: deepskyblue">3</span>
+                                <p>&nbsp;</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- End Atribute Navigation -->
+            </div>
+            <!-- Start Side Menu -->
+            <div class="side">
+                <a href="#" class="close-side"><i class="fa fa-times"></i></a>
+                <ul>
+                    <li class="cart-box">
+                        <ul class="cart-list">
+                            <li>
+                                <a href="#" class="photo"><img src="~/images/img-pro-01.jpg" class="cart-thumb" alt="" /></a>
+                                <h6><a href="#">Vật phẩm 1</a></h6>
+                                <p>1x - <span class="price">80.000 VND</span></p>
+                            </li>
+                            <li>
+                                <a href="#" class="photo"><img src="~/images/img-pro-02.jpg" class="cart-thumb" alt="" /></a>
+                                <h6><a href="#">Vật phẩm 2</a></h6>
+                                <p>1x - <span class="price">60.000 VND</span></p>
+                            </li>
+                            <li>
+                                <a href="#" class="photo"><img src="~/images/img-pro-03.jpg" class="cart-thumb" alt="" /></a>
+                                <h6><a href="#">Vật phẩm 3</a></h6>
+                                <p>1x - <span class="price">40.000 VND</span></p>
+                            </li>
+                            <li class="total">
+                                <a href="#" class="btn btn-default hvr-hover btn-cart">Xem chi tiết</a>
+                                <span class="float-right"><strong>Tổng</strong>: 180.000 VND</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- End Side Menu -->
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Main Top -->
+    @RenderBody()
+    <!-- Start Footer  -->
+    <footer>
+        <div class="footer-main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-widget">
+                            <h4>Tổ Chức</h4>
+                            <p>Công ty THHH Thương Mại Dịch Vụ Thời Số</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-link-contact">
+                            <h4>Thành viên</h4>
+                            <ul>
+                                <li><p><i class="fab fa-facebook"></i> <a href="https://fb.com/tnkbang">Triệu Nguyễn Khánh Băng</a></p></li>
+                                <li><p><i class="fab fa-facebook"></i> <a href="https://fb.com/pmnhut">Phạm Minh Nhựt</a></p></li>
+                                <li><p><i class="fab fa-facebook"></i> <a href="https://fb.com/tblong">Triệu Bảo Long</a></p></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-link-contact">
+                            <h4>Liên hệ</h4>
+                            <ul>
+                                <li>
+                                    <p><i class="fas fa-map-marker-alt"></i>Địa chỉ: 3/2, Ninh Kiều, Cần Thơ </p>
+                                </li>
+                                <li>
+                                    <p><i class="fas fa-phone-square"></i>SĐT: <a href="tel:+84-833229121">+84-833 229 121</a></p>
+                                </li>
+                                <li>
+                                    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:monngonmoingay@gmail.com">monngonmoingay@gmail.com</a></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer  -->
+    
+    <a href="#" id="back-to-top" title="Về đầu trang" style="display: none;">&uarr;</a>
+
+    <!-- ALL JS FILES -->
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <!-- ALL PLUGINS -->
+    <script src="~/js/jquery.number.js"></script>
+    <script src="~/js/toastr.js"></script>
+    <script src="~/js/jquery.superslides.min.js"></script>
+    <script src="~/js/bootstrap-select.js"></script>
+    <script src="~/js/inewsticker.js"></script>
+    <script src="~/js/bootsnav.js"></script>
+    <script src="~/js/images-loded.min.js"></script>
+    <script src="~/js/isotope.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/baguetteBox.min.js"></script>
+    <script src="~/js/form-validator.min.js"></script>
+    <script src="~/js/contact-form-script.js"></script>
+    <script src="~/js/custom.js"></script>
+    @RenderSection("Scripts", required:false)
+</body>
+</html>

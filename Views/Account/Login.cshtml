@@ -1,0 +1,103 @@
+﻿@{
+    Layout = null;
+}
+@model MonNgonMoiNgay.Models.LoginModel
+
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" type="text/css" href="~/css/style-account.css">
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/css/toastr.css" />
+</head>
+<body>
+    <div class="bg"></div>
+
+    <div class="loading">
+        <h1 id="loading-text"></h1>
+    </div>
+
+    <div class="box">
+        <h2>Đăng nhập hệ thống</h2>
+        <div class="line-td"></div>
+
+        <form id="formLogin">
+            <input id="loginEmail" type="email" required placeholder="example@gmail.com">
+            <input id="loginPass" type="password" required placeholder="Nhập mật khẩu....">
+            <input type="hidden" value="@Model.ReturnUrl" id="loginUrlReturn" />
+            <div class="checkbox">
+                <input id="loginRemember" type="checkbox" />
+                <label for="loginRemember">Ghi nhớ đăng nhập</label>
+            </div>
+
+            <p style="margin-top: 0;"><a>Quên mật khẩu?</a></p>
+
+            <div class="lbl-erro" id="erroLogin">
+                Lỗi đăng nhập !
+            </div>
+
+            <button type="submit">Đăng nhập</button>
+        </form>
+
+        <div class="division">
+            <div class="line l"></div>
+            <span>hoặc</span>
+            <div class="line r"></div>
+        </div>
+
+        <div class="social">
+            <span class="circle google" onclick="loginWithGoogle()">
+                <i class="fa fa-google-plus fa-fw"></i>
+            </span>
+            <span class="circle facebook" onclick="loginWithFacebook()">
+                <i class="fa fa-facebook fa-fw"></i>
+            </span>
+        </div>
+
+        <p>Chưa có tài khoản? <a onclick="changeForm('register')">Đăng ký ngay!</a></p>
+    </div>
+
+    <div class="sign-up">
+        <h2>Đăng ký tài khoản</h2>
+        <div class="line-td"></div>
+
+        <form id="formRegister">
+            <input id="registerEmail" type="email" required placeholder="example@gmail.com">
+            <input id="registerPass" type="password" required placeholder="Nhập mật khẩu...">
+            <input id="registerRePass" type="password" required placeholder="Nhập lại mật khẩu...">
+
+            <div class="lbl-erro" id="erroRegister">
+                Lỗi đăng ký !
+            </div>
+
+            <button type="submit">Đăng ký</button>
+        </form>
+
+        <div class="division">
+            <div class="line l"></div>
+            <span>hoặc</span>
+            <div class="line r"></div>
+        </div>
+
+        <div class="social">
+            <span class="circle google" onclick="loginWithGoogle()">
+                <i class="fa fa-google-plus fa-fw"></i>
+            </span>
+            <span class="circle facebook" onclick="loginWithFacebook()">
+                <i class="fa fa-facebook fa-fw"></i>
+            </span>
+        </div>
+
+        <p>Đã có tài khoản? <a onclick="changeForm('login')">Đăng nhập ngay!</a></p>
+    </div>
+
+    <script src="~/js/jquery-3.2.1.min.js" ></script>
+    <script src="~/js/typeit.js"></script>
+    <script src="~/js/toastr.js"></script>
+    <script src="~/js/account.js"></script>
+</body>
+</html>

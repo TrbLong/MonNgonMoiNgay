@@ -1,0 +1,139 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Tìm kiếm";
+
+}
+@using MonNgonMoiNgay.Models.Entities
+@addTagHelper *,LazZiya.TagHelpers
+@using MonNgonMoiNgay.Areas.Admin.Models
+@model PaginatedList<MonNgonMoiNgay.Models.Entities.BaiDang>
+
+<!-- Start Slider -->
+<div id="slides-shop" class="cover-slides">
+    <ul class="slides-container">
+        <li class="text-center">
+            <img src="~/Content/Images/Resources/banner-01.jpg" alt="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="m-b-20"><strong>Chào mừng đến với<br>Món Ngon Mỗi Ngày</strong></h1>
+                        <p class="m-b-40">Nơi thỏa mãn mọi đam mê ẩm thực của bạn mọi lúc mọi nơi. <br> Bạn chưa biết hôm nay ăn gì? Yên tâm, hãy để chúng tôi giúp bạn.</p>
+                        <p><a class="btn hvr-hover" href="~/Account/Login">Tham gia ngay</a></p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="text-center">
+            <img src="~/Content/Images/Resources/banner-02.jpg" alt="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="m-b-20"><strong>Chào mừng đến với<br>Món Ngon Mỗi Ngày</strong></h1>
+                        <p class="m-b-40">Nơi thỏa mãn mọi đam mê ẩm thực của bạn mọi lúc mọi nơi. <br> Bạn chưa biết hôm nay ăn gì? Yên tâm, hãy để chúng tôi giúp bạn.</p>
+                        <p><a class="btn hvr-hover" href="~/Account/Login">Tham gia ngay</a></p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="text-center">
+            <img src="~/Content/Images/Resources/banner-03.jpg" alt="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="m-b-20"><strong>Chào mừng đến với<br>Món Ngon Mỗi Ngày</strong></h1>
+                        <p class="m-b-40">Nơi thỏa mãn mọi đam mê ẩm thực của bạn mọi lúc mọi nơi. <br> Bạn chưa biết hôm nay ăn gì? Yên tâm, hãy để chúng tôi giúp bạn.</p>
+                        <p><a class="btn hvr-hover" href="~/Account/Login">Tham gia ngay</a></p>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="slides-navigation">
+        <a href="#" class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+        <a href="#" class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+    </div>
+</div>
+<!-- End Slider -->
+<!-- Start Products  -->
+<div class="products-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md">
+                <div class="title-all text-center">  
+                    <button><a href="~/Post/CreateNew"><i class="fa fa-bookmark" ></i> Đăng bài</a></button>
+                    <h1>Ăn gì hôm nay?</h1>
+                    <p>Nếu bạn chưa biết hôm nay ăn gì? Hãy xem những đề xuất của chúng tôi nhé !</p>
+                </div>
+            </div>
+        </div>  
+        <table>         
+                            @foreach(var user in Model)
+                            {
+                    <div class="col-lg-3 col-md-6 special-grid new-post">
+                        <div class="products-single fix">
+                            <div class="box-img-hover">
+                                <div class="type-lb">
+                                    <p class="new">Mới</p>
+                                </div>
+                                <img src="@user.getOneImage()" class="img-fluid" alt="Image">
+                                <div class="mask-icon">
+                                    <ul>
+                                        <li><a href="~/Post/Detail?id=@user.MaBd" data-toggle="tooltip" data-placement="right" title="Xem chi tiết"><i class="fas fa-eye"></i></a></li>
+                                        @if(User.Identity.IsAuthenticated)
+                                        {
+                                            var MaUser = User.Claims.ToList()[0].Value;
+                                            if (user.isSave(MaUser) || user.MaNd.Equals(User.Claims.ToList()[0].Value))
+                                            {
+                                                <li><a href="#" data-toggle="tooltip" class="btn disabled" data-placement="right" title="Lưu lại"><i class="fa fa-bookmark" style="padding-left: 3px"></i></a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href="#" data-toggle="tooltip" class="btn" data-placement="right" onclick="setLuuBaiDang('@user.MaBd', this)" title="Lưu lại"><i class="fa fa-bookmark" style="padding-left: 3px"></i></a></li>
+                                            }
+                                            if (user.isLike(MaUser) || user.MaNd.Equals(User.Claims.ToList()[0].Value))
+                                            {
+                                                <li><a href="#" data-toggle="tooltip" class="btn disabled" data-placement="right" title="Yêu thích"><i class="far fa-heart"></i></a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href="#" data-toggle="tooltip" class="btn" data-placement="right" onclick="setYeuThichBaiDang('@user.MaBd', this)" title="Yêu thích"><i class="far fa-heart"></i></a></li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li><a href="~/Account/Login" data-toggle="tooltip" class="btn" data-placement="right" title="Lưu lại"><i class="fa fa-bookmark" style="padding-left: 3px"></i></a></li>
+                                            <li><a href="~/Account/Login" data-toggle="tooltip" data-placement="right" title="Yêu thích"><i class="far fa-heart"></i></a></li>
+                                        }
+                                    </ul>
+                                    <a class="cart" href="#">Thêm vào giỏ hàng</a>
+                                </div>
+                            </div>
+                            <div class="why-text">
+                                <h4>@user.TenMon</h4>
+                                <label>@user.MoTa</label>
+                                <h5>@user.GiaTien VNĐ</h5>
+                            </div>
+                        </div>
+                    </div>
+                            }
+                            @if(Model.Count == 0)
+                            {
+                                <tr><td colspan="7">Rất tiếc không có kết quả trả về hợp lệ !</td></tr>
+                            }
+                        </table>
+
+    </div>
+    <div class="custom-pagination">
+                        <paging class="pagination"
+                                total-records="Model.TotalRecords"
+                                page-no="Model.PageIndex"
+                                page-size="Model.Pagesize"
+                                show-total-pages="false"
+                                show-total-records="false"
+                                show-page-size-nav="false"
+                                max-displayed-pages="5">
+                        </paging>
+                    </div>
+</div>
+
+

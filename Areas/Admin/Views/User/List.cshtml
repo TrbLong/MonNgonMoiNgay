@@ -1,0 +1,116 @@
+﻿@{
+    ViewData["Title"] = "Danh sách người dùng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@addTagHelper *,LazZiya.TagHelpers
+@using MonNgonMoiNgay.Areas.Admin.Models
+@using MonNgonMoiNgay.Models.Entities
+@model PaginatedList<MonNgonMoiNgay.Models.Entities.NguoiDung>
+
+<div class="breadcome-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="breadcome-list">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breadcome-heading">
+                                <form role="search" class="sr-input-func" id="search-user">
+                                    <input id="inp-search-user" type="text" placeholder="Tìm kiếm người dùng..." class="search-int form-control">
+                                    <a href="#" id="btn-search-user"><i class="fa fa-search"></i></a>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <ul class="breadcome-menu">
+                                <li>
+                                    <a href="~/Admin/Home/Index">Trang quản trị</a> <span class="bread-slash">/</span>
+                                </li>
+                                <li>
+                                    <span class="bread-blod">Danh sách người dùng</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="product-status mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="product-status-wrap">
+                    <div class="col-lg-3 col-md-5 col-sm-12 form-group" style="padding-left: 0">
+                        <select class="form-control" id="select-loai-user">
+                            <option value="01">Tất cả</option>
+                            @foreach(var loai in ViewData["LoaiNd"] as List<LoaiNd>)
+                            {
+                                if (!loai.MaLoai.Equals("01"))
+                                {
+                                    if (loai.MaLoai.Equals(ViewBag.Loai))
+                                    {
+                                        var tenloai = loai.MaLoai == "02" ? "Tài khoản khách" : loai.TenLoai;
+                                        <option selected value="@loai.MaLoai">@tenloai</option>
+                                    }
+                                    else
+                                    {
+                                        var tenloai = loai.MaLoai == "02" ? "Tài khoản khách" : loai.TenLoai;
+                                        <option value="@loai.MaLoai">@tenloai</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="asset-inner">
+                        <table>
+                            <tr>
+                                <th>Mã</th>
+                                <th>Image Avt</th>
+                                <th>Họ Tên</th>
+                                <th>SĐT</th>
+                                <th>Ngày tạo</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                            @foreach(var user in Model)
+                            {
+                                <tr>
+                                    <td>@user.MaNd</td>
+                                    <td><img src="@user.getImage()" alt="@user.HoLot @user.Ten" /></td>
+                                    <td>@user.HoLot @user.Ten</td>
+                                    <td>@{var sdt = String.IsNullOrEmpty(user.Sdt) ? "Chưa cập nhật" : user.Sdt;} @sdt</td>
+                                    <td>@user.NgayTao?.ToString("dd/MM/yyyy")</td>
+                                    <td>@{var tt = user.TrangThai ? "Hoạt động" : "Bị khóa";}@tt</td>
+                                    <td>
+                                    <button data-toggle="tooltip" title="Xem" class="pd-setting-ed"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                    <button data-toggle="tooltip" title="Sửa" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                    <button data-toggle="tooltip" title="Khóa" class="pd-setting-ed"><i class="fa fa-lock" aria-hidden="true"></i></button>
+                                </td>
+                                </tr>
+                            }
+                            @if(Model.Count == 0)
+                            {
+                                <tr><td colspan="7">Rất tiếc không có kết quả trả về hợp lệ !</td></tr>
+                            }
+                        </table>
+                    </div>
+                    <div class="custom-pagination">
+                        <paging class="pagination"
+                                total-records="Model.TotalRecords"
+                                page-no="Model.PageIndex"
+                                page-size="Model.Pagesize"
+                                show-total-pages="false"
+                                show-total-records="false"
+                                show-page-size-nav="false"
+                                max-displayed-pages="5">
+                        </paging>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
